@@ -1,4 +1,5 @@
 import "./App.css";
+import LinksPage from "./Pages/LinksPage";
 import { Navbar } from "./components";
 
 function App() {
@@ -7,9 +8,7 @@ function App() {
       <div className="max-w-7xl mx-auto  ">
         <Navbar />
 
-      
-
-
+        <LinksPage />
       </div>
     </div>
   );
