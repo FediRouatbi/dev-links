@@ -1,15 +1,25 @@
-import "./App.css";
+import Preview from "@/Pages/Preview";
 import LinksPage from "./Pages/LinksPage";
-import { Navbar } from "./components";
+import { Form, Profile } from "./components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Provider from "@/context/Provider";
+import { Toaster } from "sonner";
 
 function App() {
   return (
-    <div className="bg-gray-100 min-h-screen p-4 ">
-      <div className="max-w-7xl mx-auto  ">
-        <Navbar />
-
-        <LinksPage />
-      </div>
+    <div className="min-h-screen bg-gray-100 font-['Poppins']  ">
+      <Provider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LinksPage />}>
+              <Route path="links" element={<Form />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
+            <Route path="preview" element={<Preview />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster position="bottom-center" richColors />
+      </Provider>
     </div>
   );
 }
