@@ -1,30 +1,45 @@
 import { Link } from "@/components";
-import { Plus } from "lucide-react";
+import Example from "@/components/dialog/Dialog";
+import { useRbk } from "@/context/Provider";
+import { Reorder } from "framer-motion";
+import { toast } from "sonner";
+
 const Form = () => {
+  const { links, updateOrder } = useRbk();
+
   return (
-    <section className="bg-white px-10 py-5 rounded-lg">
+    <section className="flex flex-col px-10 py-5 bg-white rounded-lg">
       <h2 className="text-4xl font-extrabold ">Customize your links</h2>
       <p className="my-4 text-lg text-gray-500">
-        add/edit/remove links below and then share all your profiles with the
+        Add/edit/remove links below and then share all your profiles with the
         world!
       </p>
 
-      <button
-        type="button"
-        className="flex justify-center items-center gap-2 w-full my-10 text-violet-600 hover:text-white border border-violet-600 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  dark:border-violet-500 dark:text-violet-500 dark:hover:text-white dark:hover:bg-violet-500 dark:focus:ring-violet-800"
-      >
-        <Plus />
-        Add new link
-      </button>
-
-      <div className="flex flex-col gap-5">
-        <Link />
-        <Link />
+      <Example />
+      <Reorder.Group axis="y" values={links} onReorder={updateOrder}>
+        <div className="flex flex-col gap-5">
+          {links.map((link, i) => (
+            <Reorder.Item key={link.id} value={link}>
+              <Link
+                link={link.link}
+                platform={link.platform}
+                id={link.id}
+                num={i + 1}
+              />
+            </Reorder.Item>
+          ))}
+        </div>
+      </Reorder.Group>
+      <div className="mt-auto">
+        <button
+          onClick={() =>
+            toast.success("Yout changes have been successfuly saved!")
+          }
+          className="flex px-6 py-2 mt-6 ml-auto text-white rounded-lg bg-violet-600"
+        >
+          Save
+        </button>
       </div>
-
-      <button className="px-6 py-2 bg-violet-600 rounded-lg text-white  flex ml-auto mt-6">
-        Save
-      </button>
     </section>
   );
 };
