@@ -5,3 +5,4 @@ export * from "./Link";
 export * from "./Select/Select";
 export * from "./Profile";
 export * from "./Input";
+export * from "./buttons";
